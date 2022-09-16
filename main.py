@@ -1,4 +1,5 @@
 from argparse import ArgumentParser as AP
+import warnings
 
 import torch
 import torch.nn.functional as F
@@ -8,6 +9,7 @@ from tqdm import tqdm
 from layercam import LayerCAM
 import utils
 
+warnings.filterwarnings("ignore")
 
 def get_args():
     ap = AP(description="The Pytorch code of LayerCAM")
@@ -21,7 +23,7 @@ def get_args():
     ap.add_argument(
         "-l", "--layer_id", type=list, default=[4, 9, 16, 23, 30], help="The cam generation layer"
     )
-    ap.add_argument("-o", "--output", type=str, default='.')
+    ap.add_argument("-o", "--output", type=str , default='.')
 
     return ap.parse_args()
 
@@ -35,9 +37,9 @@ def main():
         img = img.cuda()
 
     vgg = models.vgg16(pretrained=True).eval()
-    resnet = models.resnet152(pretrained=True).eval()
-    vgg = resnet
-    print(resnet)
+    # resnet = models.resnet152(pretrained=True).eval()
+    # model = resnet
+    # print(resnet)
  
     # args.layer_id = [i for i in range(len([m for m in vgg.modules()]))]
 
@@ -53,25 +55,25 @@ def main():
 
         cam = layercam(img)
         rel = layercam.relevance(img)
+
         quit()
 
         topath = lambda i: f"./{args.output}/stage_{'0' if i<9 else ''}{i}.png"
-        utils.image.basic_visualize(
-            img.cpu().detach(), cam.type(torch.FloatTensor).cpu(), path=topath(id)
-        )
+        utils.image.basic_visualize( img.cpu().detach(), cam.type(torch.FloatTensor).cpu(), path=topath(id) )
 
         topath = lambda i: f"./{args.output}/relevance_{'0' if i<9 else ''}{i}.png"
         r = torch.where(cam.type(torch.FloatTensor).cpu() > a, 1, 0)
         r = torch.cat((r, r, r)).permute(1, 0, 2, 3).float()
-        utils.image.basic_visualize(img.cpu().detach(), r, path=topath(id))
+        utils.image.basic_visualize(img.cpu().detach(), r, path=topath(id) )
 
         maps.append(cam)
 
     m = torch.sum(torch.cat(maps), dim=0)
+
     utils.image.basic_visualize(
         img.cpu().detach(),
         m.type(torch.FloatTensor).cpu(),
-        path=f"./{args.output}/stage_total.png",
+        path=f"./{args.output}/stage_total.png" ,
     )
 
 
