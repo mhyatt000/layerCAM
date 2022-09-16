@@ -1,3 +1,5 @@
+modified from the original authors of the paper
+
 # Jittor and PyTorch implementation of [LayerCAM: Exploring Hierarchical Class Activation Maps for Localization](http://mftp.mmcheng.net/Papers/21TIP_LayerCAM.pdf)
 
 To appear at IEEE Transactions on Image Processing 2021  
