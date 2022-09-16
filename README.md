@@ -1,5 +1,9 @@
 modified from the original authors of the paper
 
+# To Run:
+
+`python3 main.py -i <image.png> -o <output dir>`
+
 # Jittor and PyTorch implementation of [LayerCAM: Exploring Hierarchical Class Activation Maps for Localization](http://mftp.mmcheng.net/Papers/21TIP_LayerCAM.pdf)
 
 To appear at IEEE Transactions on Image Processing 2021  
@@ -15,12 +19,6 @@ This paper aims to generate reliable class activation maps from different CNN la
 **`2021.7.12`**: Merged into [utkuozbulak/pytorch-cnn-visualizations](https://github.com/utkuozbulak/pytorch-cnn-visualizations) (5.8K Stars).  
 **`2021.7.10`**: Merged into [jacobgil/pytorch-grad-cam](https://github.com/jacobgil/pytorch-grad-cam) (2.9K Stars).
 
-
-## Run 
-
-```
-python test.py --img_path=images/ILSVRC2012_val_00000057.JPEG(or your own image path)
-```
 
 ## Some issues
 
